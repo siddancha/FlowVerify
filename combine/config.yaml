@@ -1,0 +1,76 @@
+combine:
+  root: '/home/jnan1/corl/osid/'
+  gmu_test:
+    gt_json: 'pipeline/gen/gt/GMU_TEST_1.json'
+    dt_json: 'pipeline/gen/dt/TDID_GMU_TEST1.json'
+    run_dir: 'pipeline/gen/score_files/all_gmu'
+    catIds: [5, 10, 12, 14, 18, 21, 28, 50, 79, 94, 96]
+    config: 'pipeline/configs/tdid_gmu_test.yaml'
+
+  rgbd:
+    gt_json: 'pipeline/gen/gt/WRGBD_GT.json'
+    dt_json: 'pipeline/gen/dt/TDID_RGBD_OUT_030.json'
+    run_dir: 'pipeline/gen/score_files/all_rgbd'
+    catIds: [1004, 1005, 1007, 1053, 1055, 1050, 1052, 1054, 1252]
+    config: 'pipeline/configs/tdid_rgbd.yaml'
+
+  ycb:
+    gt_json: 'pipeline/gen/gt/YCB_GT.json'
+    dt_json: 'pipeline/gen/dt/TDID_YCB_OUT_030.json'
+    run_dir: 'pipeline/gen/score_files/all_ycb'
+    catIds: [1,2,3,4,5,6,7,8,9,18,20]
+    config: 'pipeline/configs/tdid_ycb.yaml'   
+      
+  scorers:
+    Detector:
+      score_names: None
+      params: None
+    FlowVerify:
+      score_names: ['FRigid_100', 'FPrec', 'FRec', 'FColor_rescaled', 'nms_0.2_0.0']
+      params: [0.9, 0.9, 0.3, 0.6, 0.5]
+    SiftVerify:
+      score_names: ['SMatches', 'SPrecision']
+      params: [0.1, 0.9]
+      # 3 vps and 9 vps and 12 vps
+      # score_names: ['FRigid', 'FPrec', 'FRec', 'nms_0.9_1.0', 'FColor']
+      # params: [0.8, 0.9, 0.4, 0.5, 0.1]  
+
+      # corl tolerance
+      # overfit on gmu using old model
+      # score_names: ['FRigid', 'FPrec', 'FRec', 'nms_0.2_0.9']
+      # params: [0.3, 0.9, 0.5, 0.5] 
+    # FlowVerify-SimObj:
+    #   score_names: ['FHomInlier', 'FPrecision', 'FRecall', 'ncc_norm']
+    #   params: [0.6, 0.8, 0.3, 0.1]
+    # FlowVerify-FColor:
+    #   score_names: ['FHomInlier', 'FPrecision', 'FRecall', 'nms_0.6_0.6']
+    #   params: [0.6, 0.8, 0.3, 0.5]    
+    # FlowVerify-FRigid:
+    #   score_names: ['FPrecision', 'FRecall', 'nms_0.7_0.0', 'ncc_norm']
+    #   params: [0.9, 0.4, 0.5, 0.1]
+    # FlowVerify-FPrec:
+    #   score_names: ['FHomInlier', 'FRecall', 'nms_0.6_0.8', 'ncc_norm']
+    #   params: [0.6, 0.2, 0.5, 0.1]
+    # FlowVerify-FRecall:
+    #   score_names: ['FHomInlier', 'FPrecision', 'nms_0.6_0.8', 'ncc_norm']
+    #   params: [0.6, 0.6, 0.5, 0.1]
+    # FlowVerify-SimObj-FColor:
+    #   score_names: ['FHomInlier', 'FPrecision', 'FRecall']
+    #   params: [0.6, 0.8, 0.3]  
+    # FPrec+FRec:
+    #   score_names: ['FPrecision', 'FRecall']
+    #   params: [0.9, 0.4]
+    # FRigid+FRec:
+    #   score_names: ['FHomInlier', 'FRecall']
+    #   params: [0.6, 0.2]
+    # FRigid+FPrec:
+    #   score_names: ['FHomInlier', 'FPrecision']
+    #   params: [0.6, 0.6] 
+  # nms:
+  #   iou_thresh: 0.1
+  #   ratio_thresh: 0.1
+
+  flownet:
+    # model_path: '/home/jnan1/models/one_shot_random_shift_ckpt_1688000.pth'
+    model_path: '/home/jnan1/models/oneshot_bigbird_ckpt_1650500.pth'
+
