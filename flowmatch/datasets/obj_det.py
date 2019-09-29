@@ -188,7 +188,7 @@ class ObjectDetectionDataset:
 
         # Cropping square bbox from full scene.
         fs_dt_xy_bbox = xywh2xyxy(dt_elem['bbox'])
-        cs_im, fs_cs_xy_bbox = center_crop(fs_im, fs_dt_xy_bbox)
+        cs_im, fs_cs_xy_bbox = center_crop(fs_im, fs_dt_xy_bbox, scale_factor=1.0)
 
         # Compute cs_dt_uv_bbox.
         cs_w, cs_h = cs_im.size

@@ -21,7 +21,7 @@ class SiftMatchScorer:
         # assert(0. <= ratio <= 1.)
         # return ratio
         """Number of sift matches divided by 300"""
-        num_matches = len(self.sift_matches) / 300.
+        num_matches = min(len(self.sift_matches) / 300.0, 1)
         assert(0. <= num_matches <= 1.)
         return num_matches
 

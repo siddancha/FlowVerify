@@ -1,0 +1,17 @@
+# FlowNet architecture settings.
+flownet:
+  arch: 'FlowNetC'
+  coord_conv: True
+  cs_size: 256
+  tg_size: 256
+
+# ObjectDetectionDataset settings
+obj_det:
+  gt_json: '/home/jnan1/repos/FlowVerify/pipeline/gen/gt/GMU_TEST_1.json'
+  dt_json: '/home/jnan1/repos/FlowVerify/pipeline/gen/dt/TDID_GMU_TEST1.json'
+
+  obj_json: '/home/jnan1/repos/FlowVerify/pipeline/gen/obj/high_res/GMU_N1_15vp.json'
+  img_root: '/scratch/jnan1/ActiveVisionDataset'
+  obj_root: '/scratch/jnan1/bigbird_high_res'
+  obj_cache: '/scratch/jnan1/bigbird_high_res/cache'
+  mask_inverted: True  # BigBird masks are inverted

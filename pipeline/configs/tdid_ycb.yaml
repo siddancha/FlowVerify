@@ -1,0 +1,58 @@
+# FlowNet architecture settings.
+flownet:
+  arch: 'FlowNetC'
+  coord_conv: True
+  cs_size: 256
+  tg_size: 256
+
+# ObjectDetectionDataset settings
+obj_det:
+  gt_json: '/home/jnan1/repos/FlowVerify/pipeline/gen/gt/YCB_GT.json'
+  dt_json: '/home/jnan1/repos/FlowVerify/pipeline/gen/dt/TDID_YCB_OUT_030.json'
+
+  obj_json: '/home/jnan1/repos/FlowVerify/pipeline/gen/obj/high_res/YCB_N1_15vp.json'
+  img_root: '/scratch/jnan1/ActiveVisionDataset'
+  obj_root: '/scratch/jnan1/bigbird_high_res'
+  obj_cache: '/scratch/jnan1/bigbird_high_res/cache'
+  mask_inverted: True  # YCB masks are inverted
+
+# Grid Search Settings
+combine:
+  root: '/home/jnan1/repos/FlowVerify/'
+  gt_json: 'pipeline/gen/gt/YCB_GT.json'
+  dt_json: 'pipeline/gen/dt/TDID_YCB_OUT_030.json'
+  run_dir: 'pipeline/gen/score_files/all_ycb'        
+
+  catIds: [1,2,3,4,5,6,7,8,9,18,20]
+  combine_score: 'HardAND'
+  use_det_score: True
+
+  # Search for FlowVerify parameters
+  score_names: [
+                'FRigid',
+                'FColor',
+                'FPrec', 
+                'FRec',
+                'SimObj_0.5'   
+               ]
+  
+  grid: [
+         [0.9, 0, 1],
+         [0.5, 0, 1],
+         [0.9, 0, 1],
+         [0.3, 0, 1],
+
+
+         [1, 0, 11],
+        ]
+
+  # Search for SIFT parameters
+  # score_names: [
+  #               'SMatches', 
+  #               'SPrecision'
+  #              ]
+  # grid: [
+  #        # [0.1, 0, 1],
+  #        # [0.9, 0, 1]
+  #        [1, 0, 11],
+  #       ]

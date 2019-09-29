@@ -1,0 +1,17 @@
+# FlowNet architecture settings.
+flownet:
+  arch: 'FlowNetC'
+  coord_conv: True
+  cs_size: 256
+  tg_size: 256
+
+# ObjectDetectionDataset settings
+obj_det:
+  gt_json: '/home/jnan1/repos/FlowVerify/pipeline/gen/gt/WRGBD_GT.json'
+  dt_json: '/home/jnan1/repos/FlowVerify/pipeline/gen/dt/TDID_RGBD_OUT_030.json'
+
+  obj_json: '/home/jnan1/repos/FlowVerify/pipeline/gen/obj/high_res/RGBD_N1_15vp.json'
+  img_root: '/scratch/jnan1/ActiveVisionDataset'
+  obj_root: '/scratch/jnan1/WRGBD/targets'
+  obj_cache: '/scratch/jnan1/WRGBD/targets_cache'
+  mask_inverted: False  # RGBD masks are not inverted

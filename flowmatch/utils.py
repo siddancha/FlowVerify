@@ -3,13 +3,6 @@ import cv2
 from easydict import EasyDict as edict
 import importlib.util
 import yaml
-
-def bbox(img):
-    rows = np.any(img, axis=1)
-    cols = np.any(img, axis=0)
-    rmin, rmax = np.where(rows)[0][[0, -1]]
-    cmin, cmax = np.where(cols)[0][[0, -1]]
-    return rmin, rmax, cmin, cmax
     
 def crop_and_resize_target(tg_mask, other_arrays, size, ratio=0.95):
     """Crops target from image given a mask of the target.
