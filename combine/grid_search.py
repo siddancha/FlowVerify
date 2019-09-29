@@ -61,7 +61,7 @@ def parallel_grid_search(params, evaluator):
             new_list_acc.extend(inner_list_acc)
             new_list_params.extend(inner_list_params)   
 
-    # print and save optimal parameters
+    # print optimal parameters
     eval_list_acc = np.array(new_list_acc)
 
     best_acc_ind = eval_list_acc.argmax()
@@ -89,12 +89,8 @@ if __name__== '__main__':
                           gt_json_file=os.path.join(cfg.root, cfg.gt_json), 
                           dt_json_file=os.path.join(cfg.root, cfg.dt_json),
                           use_det_score=cfg.use_det_score,
-                          apply_nms=cfg.apply_nms,
                           cat_ids=catIds)
 
     params = [np.linspace(*x) for x in cfg.grid]
-
-    if cfg.apply_nms:
-        params = params + [np.linspace(*x) for x in cfg.nms_grid]
 
     parallel_grid_search(params, evaluator)

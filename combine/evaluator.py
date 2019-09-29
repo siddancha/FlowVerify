@@ -9,7 +9,7 @@ from combine.utils import evaluate, nms_wrapper, rerank_dets
 
 class Evaluator:
     def __init__(self, scorer, run_dir, gt_json_file, dt_json_file, 
-                 use_det_score, apply_nms=False, cat_ids=None):
+                 use_det_score, cat_ids=None):
         self.scorer = scorer
         self.run_dir = run_dir
         self.use_det_score = use_det_score
@@ -24,7 +24,6 @@ class Evaluator:
             score_file = os.path.join(self.run_dir, '{}.json'.format(score_name))
             with open(score_file, 'r') as f:
                 score_json_data = json.load(f)
-
                 score_json_dict = {entry['id']: entry['scores'] for entry in score_json_data}
             self.list_score_json_dict.append(score_json_dict)
 
@@ -33,8 +32,8 @@ class Evaluator:
             assert(set(score_json_dict_1) == set(score_json_dict_2))
 
         self.cat_ids = cat_ids
-        self.apply_nms = apply_nms
-        self.eval = MapEvaluator(self.gt_json_file, self.cat_ids)
+        with redirect_stdout(None):
+            self.eval = MapEvaluator(self.gt_json_file, self.cat_ids)
 
     def combine_scores(self, params):
         combined_score_json_data = []
@@ -52,15 +51,6 @@ class Evaluator:
 
     def _do_eval(self, params):
         # Merge and temporarily save combined_score_json_data.
-        if self.apply_nms:
-            nms_th, nms_param = params[-2:]
-            params = params[:-2]
-            nms_dts = nms_wrapper(self.dt_json_data, nms_th, nms_param)
-            nms_ids = set([x['id'] for x in nms_dts])
-            score_json_dict = {entry['id']: [1 if entry['id'] in nms_ids else 0] * 15 for entry in self.dt_json_data}
-            self.list_score_json_dict.append(score_json_dict)
-            params.append(0.5)
-
         if len(params) > 0:
             merged_json_data = self._get_merged_json_data(params)
         else:

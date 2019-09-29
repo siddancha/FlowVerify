@@ -9,11 +9,9 @@ from combine.utils import evaluate, nms_wrapper, plot_pr_curves
 from combine.scores import HardAND
 from combine.evaluator import Evaluator
 
-COLORS = ['tab:blue', 'tab:red', 'tab:green', 
-          'tab:orange', 'tab:purple', 'tab:cyan',
-          'tab:gray', 'tab:pink',  'tab:olive']
+COLORS = ['tab:blue', 'tab:red', 'tab:green']
 
-LINESTYLE = ['-', '-', '--', '--', '--', '--', '--', '--', '--', '--']
+LINESTYLE = ['-', '-', '--']
 
 OUT_DIR = 'plots'
 
@@ -72,7 +70,8 @@ def evaluate_scorers(cfg, cat_ids, dt_pth, scorers, params_list,
             ap, ar, recs = evaluator.get_pr_curve(params)
         aps.append(ap)
 
-    make_plot(aps, names, recs, plot_title)
+    if len(aps) <= 3:
+        make_plot(aps, names, recs, plot_title)
 
     print(['{}:({:.3f},{:.3f})'.format(name, np.mean(x), np.max(x)) for x,name in zip(aps, names)])
 
@@ -102,16 +101,8 @@ if __name__== '__main__':
         else:
             scorer = HardAND(cfg.scorers[name].score_names)
             params = cfg.scorers[name].params
-
-            nms_scores = [x for x in cfg.scorers[name].score_names if x.startswith('nms')]
-            if len(nms_scores) > 0:
-                nms_iou, nms_param = nms_scores[0].split('_')[-2:]
-                generate_nms_score_files(
-                         dt_pth, 
-                         float(nms_iou), 
-                         float(nms_param),
-                         os.path.join(cfg[eval_ds].root, cfg[eval_ds].run_dir)
-                         )
+            if 'nvps' in cfg.scorers[name]:
+                scorer.nvps = cfg.scorers[name].nvps
 
         names.append(name)
         scorers.append(scorer)
