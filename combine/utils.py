@@ -25,16 +25,9 @@ def rerank_dets(dt_json_data, score_json_data):
         score_json_score = max(score_json_dict[dt_id]['scores']) # max scores across viewpoints.
 
         merged_json_entry = dt_json_entry.copy()
-        merged_json_entry['passed'] = score_json_score > 0 
+        if score_json_score > 0:
+            merged_json_entry['score'] += 1.01 
         merged_json_data.append(merged_json_entry)
-
-    merged_json_data.sort(key=lambda x: (x['passed'], x['score']), reverse=True)
-
-    count = len(merged_json_data)
-    for i in range(len(merged_json_data)-1):
-        if merged_json_data[i]['score'] != merged_json_data[i+1]['score']:
-            count -= 1
-        merged_json_data[i]['score'] = count
 
     return merged_json_data
 
