@@ -1,5 +1,11 @@
 # FlowVerify
-Source code for "Combining Deep Learning and Verification forPrecise Object Instance Detection"
+This is the source code for the CoRL-19 paper:<br>
+
+[Combining Deep Learning and Verification for Precise Object Instance Detection](https://arxiv.org/abs/1912.12270)<br>
+Siddharth Ancha*, Junyu Nan*, David Held<br>
+Carnegie Mellon University<br>
+
+Project Website: [https://jnan1.github.io/FlowVerify](https://jnan1.github.io/FlowVerify/)
 
 ### Usage:
 #### To setup this repo:
